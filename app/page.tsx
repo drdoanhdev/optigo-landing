@@ -100,7 +100,7 @@ export default function Home() {
       {/* PRICING */}
       <section id="pricing" className="py-20 px-6">
         <h3 className="text-2xl font-bold text-center mb-12">
-          Bảng giá
+          Bảng giá chính
         </h3>
 
         <div className="grid md:grid-cols-3 gap-6">
