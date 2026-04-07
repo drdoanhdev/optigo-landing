@@ -90,7 +90,7 @@ export default function Home() {
       {/* DEMO */}
       <section className="bg-gray-50 py-20 px-6 text-center">
         <h3 className="text-2xl font-bold mb-6">
-          Xem trước giao diện phần mềm
+          Xem trước giao diện phần mềm có gì đặc biệt
         </h3>
         <div className="h-72 bg-gray-200 rounded-2xl flex items-center justify-center">
           Screenshot / Video demo
@@ -100,7 +100,7 @@ export default function Home() {
       {/* PRICING */}
       <section id="pricing" className="py-20 px-6">
         <h3 className="text-2xl font-bold text-center mb-12">
-          Bảng giá chính
+          Bảng giá
         </h3>
 
         <div className="grid md:grid-cols-3 gap-6">
