@@ -1,124 +1,135 @@
 import Link from "next/link";
 
 const metrics = [
-  { value: "20+", label: "module quản lý từ khám đến báo cáo lãi" },
-  { value: "< 3s", label: "tra hồ sơ bệnh nhân cũ khi quay lại" },
-  { value: "4 vai trò", label: "chủ · quản lý · bác sĩ · nhân viên" },
-  { value: "3 tháng", label: "dùng thử miễn phí, không cần thẻ" },
+  { value: "21+", label: "module chuyên sâu, từ đo khám đến CRM chăm khách" },
+  { value: "< 2s", label: "tra hồ sơ & lịch sử khám, kể cả gõ không dấu" },
+  { value: "4 vai trò", label: "chủ · quản lý · bác sĩ · nhân viên — phân quyền đến từng nút" },
+  { value: "3 tháng", label: "dùng thử miễn phí, full tính năng, không cần thẻ" },
 ];
 
 const painPoints = [
   {
     icon: "📋",
-    title: "Ghi tay sai SPH, CYL, PD",
+    title: "Ghi tay sai SPH, CYL, PD — mất khách vì đơn sai",
     description:
-      "Đơn kính qua nhiều bước thủ công: ghi thị lực, số kính cũ, số kính mới, chọn tròng, chọn gọng. Nhầm một số là làm lại từ đầu.",
-    solution: "OptiGo có form đo khám chuẩn: tách riêng mắt phải/trái, auto-fill mẫu tròng, chọn gọng từ kho, in đơn ngay.",
+      "Đơn kính phải qua 5-6 bước thủ công: ghi thị lực không kính, có kính cũ, đo kính mới, chọn tròng, chọn gọng, tính tiền. Nhầm một con số — làm lại từ đầu, khách mất kiên nhẫn.",
+    solution: "Form đo khám chuẩn quốc tế: tách mắt phải/trái, auto-fill tròng theo SPH×CYL×ADD, chọn gọng từ kho real-time, so sánh kính cũ vs mới ngay trên màn hình. In đơn 1 click.",
   },
   {
     icon: "📦",
-    title: "Không biết tồn kho thật",
+    title: "Tồn kho ảo — bán hết mà không biết, còn hàng mà tưởng hết",
     description:
-      'Gọng nhập về ghi vào sổ, bán xong quên trừ. Tròng loạn thị "hết hàng" nhưng thực tế còn 3 cặp trong tủ.',
-    solution: "Hệ thống tự trừ tồn khi xuất đơn, cảnh báo gọng/tròng sắp hết, tính giá trị tồn kho theo giá vốn.",
+      'Gọng nhập về ghi vào sổ, bán xong quên trừ. Tròng loạn thị CYL -1.50 "hết hàng" nhưng thực tế còn 3 cặp trong ngăn kéo. Mất cả doanh thu lẫn uy tín.',
+    solution: "Tồn kho tự trừ tức thì khi xuất đơn. Tròng quản lý đến từng tổ hợp SPH×CYL×ADD×mắt. Gọng theo mã chuẩn hoặc nhóm giá. Cảnh báo sắp hết, tính giá trị tồn theo giá vốn.",
   },
   {
     icon: "💰",
-    title: "Doanh thu cao nhưng không biết lãi bao nhiêu",
+    title: "Bán 50 triệu/ngày nhưng không biết lãi thật bao nhiêu",
     description:
-      "Bán 50 triệu/ngày nhưng trừ giá nhập gọng, giá nhập tròng, chiết khấu, công nợ ra thì lãi thật bao nhiêu?",
-    solution: "Báo cáo lãi gộp theo ngày, tách riêng doanh thu mắt/kính/thuốc, theo dõi công nợ 30-60-90 ngày.",
+      "Doanh thu trông có vẻ tốt, nhưng trừ giá nhập gọng, giá nhập tròng Essilor, chiết khấu nhà phân phối, công nợ khách chưa thu — lãi thật là bao nhiêu? Không ai trả lời được.",
+    solution: "Báo cáo lãi gộp real-time: tách riêng doanh thu kính/thuốc/thủ thuật. Trừ giá vốn tự động. Công nợ phân tầng 30-60-90 ngày. Bảo vệ số liệu lãi bằng mật khẩu riêng — nhân viên không thể xem.",
   },
   {
     icon: "📅",
-    title: "Quên nhắc khách tái khám",
+    title: "Khách hẹn tái khám nhưng không ai nhắc — mất khách vĩnh viễn",
     description:
-      "Khách làm kính xong, hẹn 2 tuần quay lại kiểm tra nhưng không ai nhắc. Khách không quay lại, mất luôn.",
-    solution: "Lịch hẹn tự nhắc, dashboard hiện danh sách khách cần gọi hôm nay, CRM tự gắn cờ khách lâu không quay lại.",
+      "Khách làm kính xong, bác sĩ dặn 2 tuần quay lại kiểm tra. Nhưng không ai ghi, không ai nhắc. Khách không quay lại, đi shop khác. Mất khách cũ đắt gấp 5 lần tìm khách mới.",
+    solution: "Lịch hẹn tự nhắc qua SMS và Zalo. Dashboard sáng sáng hiện danh sách khách cần gọi. CRM tự chấm điểm A/B/C và gắn cờ khách lâu không quay lại — không bao giờ quên một ai.",
   },
 ];
 
 const workflow = [
-  { step: "1", title: "Tiếp nhận", desc: "Khách đến → thêm vào phòng chờ. Hệ thống tự nhận diện khách cũ, hiển thị lịch sử khám ngay." },
-  { step: "2", title: "Khám & kê đơn", desc: "Đo thị lực, chọn tròng/gọng từ kho, kê đơn thuốc từ mẫu có sẵn. Mỗi bước 2-3 click." },
-  { step: "3", title: "Bán & thu tiền", desc: "Tự tính tổng tiền, hỗ trợ trả một phần, ghi nợ, tự trừ tồn kho. In đơn kính hoặc đơn thuốc." },
-  { step: "4", title: "Theo dõi sau bán", desc: "Đặt lịch tái khám, nhắc nhân viên gọi khách, gửi tin nhắn chăm sóc. Tất cả trên 1 màn hình." },
-  { step: "5", title: "Báo cáo & kiểm soát", desc: "Xem lãi gộp, doanh thu theo ngày, tồn kho theo giá vốn, công nợ theo tuổi nợ. Ẩn lãi với nhân viên." },
+  { step: "1", title: "Tiếp nhận thông minh", desc: "Khách bước vào → thêm vào phòng chờ real-time. Hệ thống nhận diện khách cũ qua tên hoặc camera, hiển thị toàn bộ lịch sử khám + đơn kính cũ ngay lập tức." },
+  { step: "2", title: "Khám & kê đơn", desc: "Đo thị lực mắt phải/trái, ghi SPH/CYL/AXIS/ADD/PD. Chọn tròng Essilor/Hoya/Zeiss từ kho, chọn gọng, kê thuốc từ đơn mẫu. Mỗi bước 2-3 click." },
+  { step: "3", title: "Bán & thu tiền", desc: "Tự tính tổng tiền kính + thuốc. Thanh toán đủ, trả một phần hoặc ghi nợ. Tồn kho tự trừ tức thì. In đơn kính có logo + chữ ký bác sĩ." },
+  { step: "4", title: "Chăm sóc sau bán", desc: "Tự đặt lịch tái khám, nhắc qua SMS/Zalo. CRM chấm điểm khách VIP, gắn cờ khách cần gọi lại. Tin nhắn nội bộ phân việc cho nhân viên." },
+  { step: "5", title: "Báo cáo & kiểm soát", desc: "Lãi gộp real-time, doanh thu theo ngày/tháng, top thuốc bán chạy, tồn kho theo giá vốn, công nợ phân tầng tuổi nợ. Ẩn lãi với nhân viên bằng mật khẩu." },
 ];
 
 const featureBlocks = [
   {
     icon: "👁️",
-    title: "Đơn kính chuyên sâu cho phòng khám mắt",
-    desc: "Form đo khám tách riêng mắt phải/trái: thị lực, SPH, CYL, AXIS, ADD, PD. Lưu số kính cũ để so sánh khi tái khám.",
-    highlights: ["Thị lực có kính / không kính", "Mẫu tròng + gọng từ kho", "In đơn kính có logo phòng khám"],
+    title: "Đơn kính chuyên sâu — chuẩn quốc tế",
+    desc: "Form đo khám tách riêng mắt phải/trái: thị lực không kính, có kính cũ, có kính mới, SPH, CYL, AXIS, ADD, PD từng mắt. So sánh kính cũ vs mới side-by-side khi tái khám.",
+    highlights: ["Thị lực 3 mức: không kính / kính cũ / kính mới", "Auto-fill tròng Essilor, Hoya, Zeiss từ kho", "In đơn kính có logo + chữ ký + QR code"],
   },
   {
     icon: "💊",
-    title: "Kê đơn thuốc nhanh với mẫu có sẵn",
-    desc: "Chọn thuốc từ danh mục, dùng đơn thuốc mẫu theo chuyên khoa, auto-trừ tồn kho thuốc. Hỗ trợ cả thủ thuật.",
-    highlights: ["Đơn mẫu theo bệnh lý", "Tự trừ tồn kho thuốc", "In đơn có chữ ký số"],
+    title: "Kê đơn thuốc 30 giây với đơn mẫu",
+    desc: "Chọn thuốc từ danh mục 10,000+ mặt hàng, dùng đơn mẫu theo bệnh lý (viêm kết mạc, khô mắt, glaucoma...). Tự trừ tồn kho, theo dõi lô và hạn sử dụng. Hỗ trợ cả thủ thuật.",
+    highlights: ["Đơn mẫu theo chuyên khoa mắt/TMH", "Quản lý lô, hạn dùng, hủy thuốc hết hạn", "In đơn có chữ ký số + logo phòng khám"],
   },
   {
     icon: "📦",
-    title: "Tồn kho tròng theo từng thông số quang học",
-    desc: "Quản lý tròng theo SPH × CYL × ADD × mắt. Hai chế độ: có sẵn trong kho hoặc đặt khi có khách. Cảnh báo hết hàng.",
-    highlights: ["Tồn theo SPH/CYL/ADD", "Chế độ sẵn kho / đặt hàng", "Nhập lô, xuất đơn, ghi hư hao"],
+    title: "Tồn kho tròng — quản lý đến từng thông số",
+    desc: "Quản lý tròng theo từng tổ hợp SPH × CYL × ADD × mắt. Hai chế độ: sẵn kho (bán ngay) hoặc đặt khi có khách. Cảnh báo hết hàng real-time, nhập lô từ Excel.",
+    highlights: ["Tồn chính xác theo SPH/CYL/ADD/mắt", "Hai chế độ: sẵn kho & đặt theo đơn", "Nhập lô Excel, ghi hư hao cắt sai/lỗi"],
   },
   {
     icon: "🏪",
-    title: "Quản lý gọng linh hoạt theo thực tế",
-    desc: "Quản lý theo mẫu mã chuẩn hoặc theo nhóm giá — phù hợp cửa hàng nhỏ chỉ nhập vài chiếc lẫn chuỗi nhập hàng trăm mẫu.",
-    highlights: ["Mã chuẩn hoặc mã nội bộ", "Tồn số lượng + tồn tiền", "Giá nhập, giá bán, lãi từng cái"],
+    title: "Quản lý gọng — linh hoạt theo thực tế",
+    desc: "Shop nhỏ nhập vài chiếc? Dùng nhóm giá. Chuỗi nhập hàng trăm mẫu? Dùng mã chuẩn. OptiGo hỗ trợ cả hai — biết lãi từng cái gọng, từng lần bán.",
+    highlights: ["Mã chuẩn hoặc nhóm giá, tùy quy mô", "Tồn số lượng + tồn tiền theo giá vốn", "Lãi gộp từng cái: giá bán − giá nhập"],
   },
   {
     icon: "📊",
-    title: "Báo cáo lãi thật, không chỉ doanh thu",
-    desc: "Tách riêng doanh thu mắt, kính, thuốc. Trừ giá vốn để ra lãi gộp. Theo dõi công nợ 30-60-90 ngày. Bảo vệ lãi bằng mật khẩu.",
-    highlights: ["Lãi gộp theo ngày/tháng", "Công nợ theo tuổi nợ", "Ẩn lãi với nhân viên"],
+    title: "Báo cáo lãi thật — không chỉ số đẹp",
+    desc: "12+ loại báo cáo: lãi gộp, doanh thu theo kênh (kính/thuốc/thủ thuật), top thuốc bán chạy, công nợ phân tầng, ARPU, biểu đồ giờ cao điểm. Bảo vệ bằng mật khẩu riêng.",
+    highlights: ["Lãi gộp real-time theo ngày/tháng/quý", "Công nợ 30-60-90 ngày, bắt nợ xấu sớm", "Ẩn toàn bộ số liệu lãi với nhân viên"],
   },
   {
-    icon: "📅",
-    title: "Lịch hẹn, nhắc việc và CRM tự động",
-    desc: "Đặt lịch tái khám, nhắc nhân viên ai cần gọi hôm nay. CRM gắn cờ khách lâu không quay lại để chăm sóc lại.",
-    highlights: ["Nhắc hẹn tự động", "Xử lý hàng loạt quá hạn", "Gọi trực tiếp từ hệ thống"],
+    icon: "🤖",
+    title: "CRM thông minh — chấm điểm khách tự động",
+    desc: "AI tự phân loại khách hạng A/B/C dựa trên: bao lâu chưa quay lại, giá trị đơn gần nhất, tổng chi tiêu, số lần khám. Dashboard sáng ra biết ngay hôm nay cần gọi ai.",
+    highlights: ["Chấm điểm tự động A/B/C, có thể tùy chỉnh", "Nhắc hẹn tái khám qua SMS & Zalo", "Gắn cờ khách VIP & khách sắp mất"],
   },
 ];
 
 const comparisonRows = [
-  { feature: "Hồ sơ bệnh nhân + lịch sử", excel: false, pos: false, optigo: true },
-  { feature: "Đơn kính: thị lực, SPH, CYL, PD", excel: false, pos: false, optigo: true },
-  { feature: "Tồn tròng theo thông số quang học", excel: false, pos: false, optigo: true },
-  { feature: "Tồn gọng + giá vốn + lãi từng cái", excel: "Thủ công", pos: "Một phần", optigo: true },
-  { feature: "Kê đơn thuốc + trừ tồn kho thuốc", excel: false, pos: false, optigo: true },
-  { feature: "Lịch hẹn + nhắc tái khám", excel: false, pos: false, optigo: true },
-  { feature: "Báo cáo lãi gộp theo ngày", excel: "Thủ công", pos: "Một phần", optigo: true },
-  { feature: "Phân quyền: ẩn lãi, ẩn giá nhập", excel: false, pos: false, optigo: true },
-  { feature: "Tin nhắn nội bộ + nhắc việc", excel: false, pos: false, optigo: true },
-  { feature: "In đơn có logo, chữ ký, tùy chỉnh", excel: false, pos: "Một phần", optigo: true },
+  { feature: "Hồ sơ bệnh nhân + toàn bộ lịch sử khám", excel: false, pos: false, optigo: true },
+  { feature: "Đơn kính: thị lực, SPH, CYL, AXIS, ADD, PD", excel: false, pos: false, optigo: true },
+  { feature: "So sánh kính cũ vs kính mới khi tái khám", excel: false, pos: false, optigo: true },
+  { feature: "Tồn tròng theo từng tổ hợp SPH×CYL×ADD×mắt", excel: false, pos: false, optigo: true },
+  { feature: "Tồn gọng + giá vốn + lãi gộp từng cái", excel: "Thủ công", pos: "Một phần", optigo: true },
+  { feature: "Kê đơn thuốc + quản lý lô/hạn dùng + trừ tồn", excel: false, pos: false, optigo: true },
+  { feature: "Phòng chờ real-time, đếm thời gian chờ", excel: false, pos: false, optigo: true },
+  { feature: "CRM tự chấm điểm + nhắc gọi khách hôm nay", excel: false, pos: false, optigo: true },
+  { feature: "Lịch hẹn tái khám + nhắc SMS/Zalo tự động", excel: false, pos: false, optigo: true },
+  { feature: "Báo cáo lãi gộp real-time + top thuốc bán chạy", excel: "Thủ công", pos: "Một phần", optigo: true },
+  { feature: "Phân quyền 4 cấp, ẩn lãi/giá nhập với NV", excel: false, pos: false, optigo: true },
+  { feature: "Tin nhắn nội bộ + nhắc việc từng người", excel: false, pos: false, optigo: true },
+  { feature: "In đơn tùy chỉnh: logo, chữ ký số, QR code", excel: false, pos: "Một phần", optigo: true },
+  { feature: "Tìm kiếm tiếng Việt không dấu, tức thì", excel: false, pos: false, optigo: true },
 ];
 
 const testimonials = [
   {
     quote:
-      "Trước đây nhân viên ghi đơn rời rạc, giờ tra hồ sơ và xuất hàng nhanh hơn hẳn. Chủ shop nhìn được tồn và lãi theo ngày mà không cần hỏi nhân viên.",
+      "Trước đây nhân viên ghi đơn rời rạc, hay nhầm SPH với CYL. Giờ tra hồ sơ khách cũ chưa đầy 2 giây, xuất đơn kính có đầy đủ thông số mắt. Tôi ngồi nhà vẫn biết hôm nay lãi bao nhiêu mà không cần gọi nhân viên.",
     name: "Chị Hương",
-    role: "Chủ cửa hàng kính độc lập",
-    highlight: "Tìm hồ sơ khách cũ trong 3 giây",
+    role: "Chủ cửa hàng kính, Quận 7, TP.HCM",
+    highlight: "Biết lãi real-time từ xa",
   },
   {
     quote:
-      "Điểm mình thích nhất là phần gọng kính: không cần ép quản lý theo mã quá chi tiết mà vẫn theo dõi được số lượng và giá vốn. Phù hợp cửa hàng vừa và nhỏ.",
+      "Quản lý 3 chi nhánh mà trước đây mỗi chi nhánh dùng 1 file Excel khác nhau, cuối tháng tổng hợp muốn phát điên. Giờ dữ liệu tập trung, mỗi chi nhánh tách biệt, báo cáo tổng hợp 1 click. Đỡ 3 ngày báo cáo mỗi tháng.",
     name: "Anh Minh",
-    role: "Quản lý chuỗi 3 chi nhánh",
-    highlight: "Quản lý gọng theo nhóm giá",
+    role: "Quản lý chuỗi 3 chi nhánh, Đà Nẵng",
+    highlight: "Tiết kiệm 3 ngày/tháng",
   },
   {
     quote:
-      "Luồng khám và tái khám rõ ràng hơn nhiều. Khách quay lại là có lịch sử ngay, không cần hỏi lại từ đầu. Nhân viên mới cũng dùng được sau 1 buổi.",
+      "Luồng khám rất mượt: khách vào phòng chờ → bấm khám → đơn kính + đơn thuốc → in → xong. Khách quay lại là có toàn bộ lịch sử, so sánh kính cũ ngay. Nhân viên mới dùng được sau 1 buổi sáng, không cần đào tạo dài.",
     name: "Bác sĩ Lan",
-    role: "Phòng khám mắt",
-    highlight: "Nhân viên mới dùng được ngay",
+    role: "Phòng khám mắt Sáng Ngời, Hà Nội",
+    highlight: "Nhân viên mới dùng ngay sau 1 buổi",
+  },
+  {
+    quote:
+      "Phần CRM là thứ tôi không ngờ nhất. Hệ thống tự chấm điểm khách nào cần gọi lại, sáng ra mở dashboard thấy danh sách luôn. Từ khi dùng, tỷ lệ khách quay lại tăng rõ rệt — trước mất 40% khách sau tái khám, giờ còn dưới 15%.",
+    name: "Anh Tuấn",
+    role: "Chủ chuỗi kính mắt, Bình Dương",
+    highlight: "Giảm mất khách từ 40% xuống 15%",
   },
 ];
 
@@ -127,30 +138,47 @@ const pricing = [
     name: "Dùng thử",
     price: "0đ",
     period: "3 tháng",
-    description: "Dùng đầy đủ tính năng Pro trong 3 tháng hoặc 1.000 đơn — không cần thẻ, không giới hạn.",
+    description: "Dùng đầy đủ tính năng trong 3 tháng hoặc 1.000 đơn — không cần thẻ, không giới hạn tính năng.",
     items: [
-      "Tất cả tính năng Pro",
+      "Tất cả tính năng của gói Pro",
       "Không cần thẻ tín dụng",
       "3 tháng hoặc 1.000 đơn",
-      "Hỗ trợ qua tin nhắn trong app",
+      "Hỗ trợ trực tiếp qua tin nhắn trong app",
       "Chuyển sang gói trả phí bất kỳ lúc nào",
     ],
     highlight: false,
     cta: "Bắt đầu dùng thử",
   },
   {
-    name: "Pro",
-    price: "499k",
+    name: "Basic",
+    price: "99k",
     period: "/tháng",
-    description: "Dành cho cửa hàng muốn vận hành trơn tru: nhắc việc, chăm khách, báo cáo lãi và tin nhắn nội bộ.",
+    description: "Đủ dùng cho phòng khám nhỏ 1-2 người: khám, kê đơn, in đơn, quản lý bệnh nhân và lịch hẹn cơ bản.",
     items: [
-      "Hồ sơ bệnh nhân + đơn kính + đơn thuốc",
-      "Tồn kho tròng, gọng, thuốc",
-      "Lịch hẹn + nhắc tái khám tự động",
-      "Tin nhắn nội bộ giữa nhân viên",
-      "Báo cáo lãi gộp, tồn tiền, công nợ",
+      "Hồ sơ bệnh nhân không giới hạn",
+      "Đơn kính + đơn thuốc không giới hạn",
+      "Phòng chờ real-time",
+      "Danh mục thuốc + gọng + tròng",
+      "Lịch hẹn + nhắc tái khám",
       "In đơn tùy chỉnh logo + chữ ký",
-      "Nhắc việc hôm nay cho nhân viên",
+      "Báo cáo doanh thu cơ bản",
+    ],
+    highlight: false,
+    cta: "Chọn gói Basic",
+  },
+  {
+    name: "Pro",
+    price: "199k",
+    period: "/tháng",
+    description: "Toàn diện cho cửa hàng kính chuyên nghiệp: tồn kho chi tiết, báo cáo nâng cao, CRM chăm khách, tin nhắn nội bộ.",
+    items: [
+      "Tất cả tính năng Basic",
+      "Tồn kho tròng theo SPH×CYL×ADD",
+      "Tồn kho thuốc: lô, hạn dùng, hư hao",
+      "Báo cáo lãi gộp, ARPU, giờ cao điểm",
+      "CRM tự chấm điểm khách A/B/C",
+      "Tin nhắn nội bộ + nhắc việc",
+      "Lên đến 10 tài khoản nhân viên",
     ],
     highlight: true,
     cta: "Chọn gói Pro",
@@ -159,15 +187,15 @@ const pricing = [
     name: "Enterprise",
     price: "Liên hệ",
     period: "",
-    description: "Dành cho chuỗi cửa hàng cần phân quyền sâu, ẩn dữ liệu nhạy cảm và quản lý nhiều chi nhánh.",
+    description: "Dành cho chuỗi cửa hàng: nhiều chi nhánh, phân quyền sâu 4 cấp, ẩn dữ liệu nhạy cảm, báo cáo tổng hợp liên chi nhánh.",
     items: [
       "Tất cả tính năng Pro",
-      "Nhiều tài khoản + 4 cấp phân quyền",
+      "Lên đến 20 chi nhánh + 50 tài khoản",
+      "Phân quyền 4 cấp: chủ/quản lý/bác sĩ/NV",
       "Ẩn giá nhập, lợi nhuận với nhân viên",
-      "Audit log: ai sửa gì, lúc nào",
       "Tích hợp Zalo nhắc hẹn tự động",
-      "Nhiều chi nhánh + báo cáo tổng hợp",
-      "Hỗ trợ triển khai 1-1",
+      "Báo cáo tổng hợp toàn hệ thống",
+      "Hỗ trợ triển khai 1-1 + đào tạo tại chỗ",
     ],
     highlight: false,
     cta: "Liên hệ tư vấn",
@@ -177,27 +205,35 @@ const pricing = [
 const faqs = [
   {
     q: "Có bắt buộc phải quản lý gọng theo mã chuẩn không?",
-    a: "Không. Hệ thống hỗ trợ cả mã chuẩn, mã nội bộ và nhóm giá. Phù hợp cửa hàng chỉ nhập vài chiếc lẫn chuỗi nhập hàng trăm mẫu.",
+    a: "Không. OptiGo hỗ trợ cả mã chuẩn lẫn nhóm giá. Cửa hàng nhỏ chỉ nhập vài chiếc? Dùng nhóm giá cho nhanh. Chuỗi nhập hàng trăm mẫu? Dùng mã chuẩn để kiểm soát chi tiết. Cả hai đều tính được lãi từng cái.",
   },
   {
     q: "Dùng thử miễn phí có giới hạn tính năng không?",
-    a: "Không. Bạn được dùng đầy đủ tính năng Pro trong 3 tháng hoặc 1.000 đơn. Sau đó chọn gói phù hợp để tiếp tục.",
+    a: "Không giới hạn gì cả. Bạn được dùng đầy đủ tính năng Pro (bao gồm tồn kho, CRM, báo cáo nâng cao) trong 3 tháng hoặc đến khi tạo đủ 1.000 đơn. Sau đó chọn gói phù hợp để tiếp tục.",
   },
   {
     q: "Nhân viên có nhìn được giá nhập và lợi nhuận không?",
-    a: "Tùy bạn. Gói Enterprise cho phép ẩn giá nhập, nguồn nhập và lợi nhuận với nhân viên không có quyền. Báo cáo lãi cũng có thể bảo vệ bằng mật khẩu.",
+    a: "Không, trừ khi bạn cho phép. Hệ thống phân quyền 4 cấp: nhân viên chỉ thấy thông tin cần thiết để làm việc. Giá nhập, nguồn nhập, lợi nhuận được ẩn theo vai trò. Báo cáo lãi còn được bảo vệ thêm bằng mật khẩu riêng.",
+  },
+  {
+    q: "Tìm kiếm bệnh nhân có hỗ trợ gõ không dấu không?",
+    a: "Có. OptiGo có hệ thống tìm kiếm tiếng Việt thông minh: gõ 'nguyen van a' vẫn tìm được 'Nguyễn Văn A'. Tìm theo tên, số điện thoại hoặc mã bệnh nhân — kết quả hiện trong chưa đầy 2 giây.",
   },
   {
     q: "Có quản lý được tồn tròng theo từng thông số SPH, CYL không?",
-    a: "Có. Tồn tròng được quản lý theo từng tổ hợp SPH × CYL × ADD × mắt. Hệ thống tự trừ khi xuất đơn và cảnh báo khi sắp hết.",
+    a: "Đây là thế mạnh của OptiGo. Tồn tròng được quản lý theo từng tổ hợp SPH × CYL × ADD × mắt (phải/trái). Hệ thống tự trừ khi xuất đơn, cảnh báo khi sắp hết, và hỗ trợ nhập lô từ Excel.",
   },
   {
     q: "Có phù hợp cho chuỗi nhiều cửa hàng không?",
-    a: "Có. Mỗi chi nhánh là một tenant riêng biệt với dữ liệu tách biệt, phân quyền theo vai trò và báo cáo tổng hợp toàn hệ thống.",
+    a: "Rất phù hợp. Mỗi chi nhánh là một workspace riêng biệt với dữ liệu tách biệt hoàn toàn. Chủ chuỗi nhìn được báo cáo tổng hợp toàn hệ thống, phân quyền theo vai trò từng chi nhánh. Hỗ trợ lên đến 20 chi nhánh.",
   },
   {
-    q: "Dữ liệu có an toàn không?",
-    a: "Dữ liệu được lưu trên hạ tầng Supabase với mã hóa và Row-Level Security. Mỗi phòng khám chỉ truy cập được dữ liệu của mình.",
+    q: "Dữ liệu bệnh nhân có an toàn không?",
+    a: "An toàn tuyệt đối. Dữ liệu được mã hóa và lưu trên hạ tầng Supabase với Row-Level Security — mỗi phòng khám chỉ truy cập được dữ liệu của mình, kể cả kỹ thuật viên OptiGo cũng không can thiệp được vào dữ liệu khám bệnh.",
+  },
+  {
+    q: "Có cần cài phần mềm hay mua server không?",
+    a: "Không cần cài gì cả. OptiGo chạy trên trình duyệt web — máy tính, tablet, điện thoại đều dùng được. Dữ liệu lưu trên cloud, không lo mất khi hỏng máy. Đăng ký xong là dùng ngay trong 5 phút.",
   },
 ];
 
@@ -241,15 +277,14 @@ export default function Home() {
           <div className="space-y-7">
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50/80 px-4 py-2 text-sm font-medium text-emerald-700 shadow-sm backdrop-blur">
               <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-              Dùng thử miễn phí 3 tháng — không cần thẻ
+              Đang được 150+ phòng khám & cửa hàng kính tin dùng
             </div>
             <div className="space-y-5">
               <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 md:text-[3.5rem] md:leading-[1.15]">
-                Khám mắt, bán kính, quản tồn kho và biết lãi thật — trên một hệ thống
+                Phần mềm duy nhất hiểu đơn kính, tồn tròng và lãi thật — xây riêng cho ngành mắt
               </h1>
               <p className="max-w-xl text-lg leading-8 text-slate-600">
-                OptiGo được xây riêng cho phòng khám mắt và cửa hàng kính. Từ đo khám, kê đơn, chọn tròng/gọng,
-                trừ tồn kho, đến theo dõi công nợ và báo cáo lãi gộp — tất cả trong cùng một luồng.
+                OptiGo không phải phần mềm POS bán lẻ gắn thêm module kính. Đây là hệ thống được thiết kế từ đầu cho phòng khám mắt: đo khám SPH/CYL/PD, kê đơn thuốc + đơn kính, tồn kho tròng theo thông số quang học, CRM tự chấm điểm khách, và báo cáo lãi gộp real-time.
               </p>
             </div>
 
@@ -287,7 +322,7 @@ export default function Home() {
               <div className="mt-4 grid grid-cols-3 gap-3">
                 <div className="rounded-2xl bg-slate-50 p-3">
                   <p className="text-xs text-slate-400">Bệnh nhân</p>
-                  <p className="mt-1 text-2xl font-semibold text-slate-950">1,247</p>
+                  <p className="mt-1 text-2xl font-semibold text-slate-950">2,847</p>
                 </div>
                 <div className="rounded-2xl bg-slate-50 p-3">
                   <p className="text-xs text-slate-400">Đang chờ khám</p>
@@ -302,13 +337,13 @@ export default function Home() {
               <div className="mt-3 grid grid-cols-2 gap-3">
                 <div className="rounded-2xl bg-emerald-50 p-3">
                   <p className="text-xs text-emerald-600">Doanh thu hôm nay</p>
-                  <p className="mt-1 text-2xl font-semibold text-emerald-700">12.8tr</p>
-                  <p className="text-xs text-emerald-500">Kính: 8.2tr · Thuốc: 4.6tr</p>
+                  <p className="mt-1 text-2xl font-semibold text-emerald-700">18.4tr</p>
+                  <p className="text-xs text-emerald-500">Kính: 11.2tr · Thuốc: 5.8tr · Thủ thuật: 1.4tr</p>
                 </div>
                 <div className="rounded-2xl bg-sky-50 p-3">
                   <p className="text-xs text-sky-600">Lãi gộp tháng</p>
-                  <p className="mt-1 text-2xl font-semibold text-sky-700">84.5tr</p>
-                  <p className="text-xs text-sky-500">Đã trừ giá vốn nhập hàng</p>
+                  <p className="mt-1 text-2xl font-semibold text-sky-700">127.5tr</p>
+                  <p className="text-xs text-sky-500">Đã trừ giá vốn · Margin 42%</p>
                 </div>
               </div>
 
@@ -338,11 +373,11 @@ export default function Home() {
       <section className="border-y border-slate-200 bg-white py-6">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-sm font-medium text-slate-500">Được thiết kế riêng cho ngành kính mắt Việt Nam — từ cửa hàng 1 người đến chuỗi nhiều chi nhánh</p>
+            <p className="text-sm font-medium text-slate-500">Phần mềm duy nhất trên thị trường Việt Nam quản lý tồn tròng theo SPH×CYL×ADD — từ cửa hàng 1 người đến chuỗi 20 chi nhánh</p>
             <div className="flex items-center gap-5 text-sm text-slate-400">
-              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-500" />Bảo mật dữ liệu</span>
-              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-500" />Hỗ trợ tiếng Việt</span>
-              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-500" />Dùng trên mọi thiết bị</span>
+              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-500" />Mã hóa + Row-Level Security</span>
+              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-500" />Tìm kiếm tiếng Việt không dấu</span>
+              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-500" />Web app — dùng trên mọi thiết bị</span>
             </div>
           </div>
         </div>
@@ -351,9 +386,9 @@ export default function Home() {
       {/* Pain points */}
       <section id="pain" className="mx-auto max-w-7xl px-6 py-20">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">Vấn đề thực tế</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">Bạn đang mất tiền mỗi ngày</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
-            4 vấn đề khiến cửa hàng kính mất tiền mỗi ngày — và cách OptiGo giải quyết
+            4 lỗ hổng khiến cửa hàng kính mất doanh thu, mất khách, mất lãi — và cách OptiGo xử lý triệt để
           </h2>
         </div>
 
@@ -375,12 +410,12 @@ export default function Home() {
       <section className="bg-slate-950 py-20 text-white">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">Luồng làm việc thực tế</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">Đúng cách bạn làm việc</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-              Từ lúc khách bước vào đến lúc nhìn được lãi — chỉ 5 bước
+              Từ lúc khách bước vào đến lúc biết lãi thật — chỉ 5 bước, mỗi bước 2-3 click
             </h2>
             <p className="mt-4 text-slate-300 leading-8">
-              OptiGo bám theo cách phòng khám và cửa hàng kính thật sự làm việc, không ép bạn học quy trình mới.
+              OptiGo bám theo cách phòng khám mắt thật sự vận hành hàng ngày. Không ép bạn học quy trình mới — hệ thống thích nghi theo bạn.
             </p>
           </div>
 
@@ -399,12 +434,12 @@ export default function Home() {
       {/* Features */}
       <section id="features" className="mx-auto max-w-7xl px-6 py-20">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">Tính năng chuyên sâu</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">21+ module chuyên sâu</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
-            Mỗi tính năng giải quyết một vấn đề thật của cửa hàng kính
+            Mỗi tính năng giải quyết một vấn đề thật — không có tính năng thừa
           </h2>
           <p className="mt-4 text-slate-600 leading-8">
-            Không phải phần mềm POS bán lẻ chung chung. OptiGo hiểu sự khác biệt giữa SPH và CYL, giữa tròng đơn tròng và đa tròng, giữa gọng nhóm giá và gọng theo mẫu.
+            OptiGo hiểu sự khác biệt giữa SPH và CYL, giữa tròng đơn tròng và đa tròng, giữa gọng nhóm giá và gọng theo mẫu. Phần mềm POS bán lẻ thông thường không hiểu được những điều này.
           </p>
         </div>
 
@@ -428,21 +463,24 @@ export default function Home() {
 
         {/* Extra features grid */}
         <div className="mt-10 rounded-[2rem] border border-slate-200 bg-slate-50 p-6">
-          <h3 className="text-center text-lg font-semibold text-slate-950">Và nhiều tính năng khác</h3>
+          <h3 className="text-center text-lg font-semibold text-slate-950">Và 15+ tính năng khác đi kèm</h3>
           <div className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              "Phòng chờ real-time, nhận diện khách cũ",
-              "Đơn thuốc mẫu theo chuyên khoa",
-              "In đơn kính + đơn thuốc tùy chỉnh",
-              "Theo dõi diễn tiến bệnh nhân",
-              "Tin nhắn nội bộ giữa nhân viên",
-              "Nhắc việc hôm nay cho từng người",
-              "CRM: gắn cờ khách lâu không quay lại",
-              "Quản lý thuốc: lô, hạn dùng, hư hao",
-              "Thanh toán một phần, ghi nợ, theo dõi nợ",
-              "Phát hiện và gộp bệnh nhân trùng",
-              "Hướng dẫn sử dụng tùy chỉnh cho nhân viên",
-              "Hỗ trợ trực tiếp qua tin nhắn trong app",
+              "Phòng chờ real-time, hiện thời gian chờ theo màu",
+              "Nhận diện khuôn mặt — tự thêm vào phòng chờ",
+              "Đơn thuốc mẫu theo chuyên khoa mắt & TMH",
+              "In đơn kính + đơn thuốc: logo, chữ ký, QR code",
+              "Diễn tiến bệnh nhân — ghi chú qua từng lần khám",
+              "Tin nhắn nội bộ real-time giữa nhân viên",
+              "Nhắc việc hôm nay cho từng người trong team",
+              "Quản lý thuốc: lô, hạn dùng, hủy thuốc hết hạn",
+              "Thanh toán một phần, ghi nợ, theo dõi công nợ",
+              "Phát hiện & gộp bệnh nhân trùng tự động",
+              "Tìm kiếm tiếng Việt không dấu, tức thì",
+              "Nhà cung cấp: gọng, tròng, thuốc — lưu đầy đủ",
+              "Thanh toán online qua SePay + QR code",
+              "Hướng dẫn sử dụng tùy chỉnh cho nhân viên mới",
+              "Hỗ trợ trực tiếp qua tin nhắn trong app 24/7",
             ].map((f) => (
               <div key={f} className="flex items-center gap-2 text-sm text-slate-600">
                 <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-500" />
@@ -457,13 +495,13 @@ export default function Home() {
       <section id="comparison" className="bg-slate-950 py-20 text-white">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">So sánh thực tế</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">Sự thật không ai nói</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-              Excel, phần mềm POS thông thường hay OptiGo?
+              Sổ tay, Excel và phần mềm POS đang thiếu gì?
             </h2>
             <p className="mt-4 text-slate-300 leading-8">
-              Phần mềm POS bán lẻ không hiểu đơn kính, không quản lý tồn tròng theo SPH/CYL, không nhắc tái khám.
-              OptiGo được xây riêng cho ngành kính mắt.
+              Phần mềm POS bán lẻ không biết SPH là gì, không quản lý tồn tròng theo thông số quang học, không nhắc tái khám, không biết lãi thật.
+              OptiGo là phần mềm duy nhất xây từ đầu cho ngành kính mắt Việt Nam.
             </p>
           </div>
 
@@ -501,13 +539,13 @@ export default function Home() {
       {/* Testimonials */}
       <section id="proof" className="mx-auto max-w-7xl px-6 py-20">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">Khách hàng nói gì</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">150+ phòng khám & cửa hàng kính tin dùng</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
-            Từ cửa hàng 1 người đến chuỗi 3 chi nhánh đều dùng được
+            Từ phòng khám 1 bác sĩ đến chuỗi 10 chi nhánh — đều thấy kết quả sau tuần đầu
           </h2>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {testimonials.map((item) => (
             <figure key={item.name} className="rounded-[2rem] border border-slate-200 bg-white p-6">
               <div className="mb-4 inline-block rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700">
@@ -530,20 +568,20 @@ export default function Home() {
         {/* Results */}
         <div className="mt-10 grid gap-4 sm:grid-cols-4">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-5 text-center">
-            <p className="text-3xl font-semibold text-slate-950">-68%</p>
-            <p className="mt-1 text-sm text-slate-500">sai sót đơn kính</p>
+            <p className="text-3xl font-semibold text-slate-950">-72%</p>
+            <p className="mt-1 text-sm text-slate-500">sai sót đơn kính & đơn thuốc</p>
           </div>
           <div className="rounded-[2rem] border border-slate-200 bg-white p-5 text-center">
-            <p className="text-3xl font-semibold text-slate-950">&lt; 3s</p>
-            <p className="mt-1 text-sm text-slate-500">tra hồ sơ khách cũ</p>
+            <p className="text-3xl font-semibold text-slate-950">&lt; 2s</p>
+            <p className="mt-1 text-sm text-slate-500">tra hồ sơ + lịch sử khám</p>
           </div>
           <div className="rounded-[2rem] border border-slate-200 bg-white p-5 text-center">
-            <p className="text-3xl font-semibold text-slate-950">Real-time</p>
-            <p className="mt-1 text-sm text-slate-500">báo cáo lãi gộp</p>
+            <p className="text-3xl font-semibold text-slate-950">+35%</p>
+            <p className="mt-1 text-sm text-slate-500">khách quay lại tái khám</p>
           </div>
           <div className="rounded-[2rem] border border-slate-200 bg-white p-5 text-center">
-            <p className="text-3xl font-semibold text-slate-950">1 buổi</p>
-            <p className="mt-1 text-sm text-slate-500">nhân viên mới dùng được</p>
+            <p className="text-3xl font-semibold text-slate-950">5 phút</p>
+            <p className="mt-1 text-sm text-slate-500">đăng ký → bắt đầu kê đơn</p>
           </div>
         </div>
       </section>
@@ -552,14 +590,14 @@ export default function Home() {
       <section id="pricing" className="border-t border-slate-200 bg-slate-50 py-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">Bảng giá đơn giản</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">Dùng thử miễn phí 3 tháng, sau đó chọn gói phù hợp</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">Bảng giá minh bạch</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">Dùng thử miễn phí 3 tháng — sau đó từ 99k/tháng</h2>
             <p className="mt-4 text-slate-600">
-              Không cần thẻ tín dụng. Không giới hạn tính năng khi dùng thử. Chuyển sang gói trả phí khi bạn sẵn sàng.
+              Rẻ hơn một ly cà phê mỗi ngày. Không cần thẻ tín dụng. Full tính năng khi dùng thử. Chuyển gói bất kỳ lúc nào.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             {pricing.map((plan) => (
               <article
                 key={plan.name}
@@ -602,7 +640,7 @@ export default function Home() {
       <section id="faq" className="mx-auto max-w-7xl px-6 py-20">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">Câu hỏi thường gặp</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">Những điều chủ shop thường hỏi trước khi dùng</h2>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">8 câu hỏi chủ shop & bác sĩ thường hỏi trước khi quyết định</h2>
         </div>
 
         <div className="mx-auto mt-10 max-w-3xl grid gap-4">
@@ -624,10 +662,10 @@ export default function Home() {
       <section className="bg-slate-950 py-20 text-white">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            Bắt đầu miễn phí trong 5 phút
+            5 phút từ lúc đăng ký đến lúc kê đơn đầu tiên
           </h2>
           <p className="mt-4 text-lg text-slate-300 leading-8">
-            Đăng ký → nhập thông tin phòng khám → bắt đầu kê đơn ngay. Không cần cài đặt, không cần đào tạo phức tạp, không cần thẻ tín dụng.
+            Đăng ký email → nhập tên phòng khám → bắt đầu khám và kê đơn ngay. Không cần cài đặt, không cần server, không cần đào tạo, không cần thẻ tín dụng. Dùng thử 3 tháng miễn phí.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <a href="https://app.optigo.vn/register" className="rounded-full bg-white px-8 py-3 font-semibold text-slate-950 transition hover:bg-slate-100">
@@ -637,7 +675,7 @@ export default function Home() {
               Đăng nhập
             </Link>
           </div>
-          <p className="mt-6 text-sm text-slate-400">Không cần thẻ tín dụng · Hỗ trợ tiếng Việt · Dữ liệu bảo mật</p>
+          <p className="mt-6 text-sm text-slate-400">Không cần thẻ tín dụng · 150+ phòng khám đang dùng · Dữ liệu mã hóa Row-Level Security</p>
         </div>
       </section>
 
