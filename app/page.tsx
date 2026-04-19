@@ -240,35 +240,44 @@ const faqs = [
 export default function Home() {
   return (
     <main className="text-slate-900">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/60 bg-white/75 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div className="grid h-11 w-11 place-items-center rounded-2xl bg-slate-950 text-sm font-semibold text-white">O</div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">OptiGo</p>
-              <p className="hidden text-sm font-medium text-slate-600 sm:block">Phần mềm quản lý phòng khám mắt & cửa hàng kính</p>
-            </div>
-          </div>
+{/* Header */}
+<header className="sticky top-0 z-50 border-b border-white/60 bg-white/75 backdrop-blur-xl">
+  <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <div className="flex items-center gap-3">
+      {/* Logo thật */}
+      <img 
+        src="https://optigo.vn/logo.png" 
+        alt="OptiGo Logo" 
+        className="h-11 w-auto"     // giữ chiều cao giống placeholder cũ (h-11 = 44px)
+      />
 
-          <nav className="hidden items-center gap-6 text-sm text-slate-600 lg:flex">
-            <a href="#pain" className="transition hover:text-slate-950">Vấn đề</a>
-            <a href="#features" className="transition hover:text-slate-950">Tính năng</a>
-            <a href="#comparison" className="transition hover:text-slate-950">So sánh</a>
-            <a href="#proof" className="transition hover:text-slate-950">Khách hàng</a>
-            <a href="#pricing" className="transition hover:text-slate-950">Bảng giá</a>
-          </nav>
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">OptiGo</p>
+        <p className="hidden text-sm font-medium text-slate-600 sm:block">
+          Phần mềm quản lý phòng khám mắt & cửa hàng kính
+        </p>
+      </div>
+    </div>
 
-          <div className="flex items-center gap-3">
-            <Link href="https://app.optigo.vn" className="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:bg-white sm:inline-flex">
-              Đăng nhập
-            </Link>
-            <a href="#pricing" className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
-              Dùng thử miễn phí
-            </a>
-          </div>
-        </div>
-      </header>
+    {/* Phần còn lại giữ nguyên */}
+    <nav className="hidden items-center gap-6 text-sm text-slate-600 lg:flex">
+      <a href="#pain" className="transition hover:text-slate-950">Vấn đề</a>
+      <a href="#features" className="transition hover:text-slate-950">Tính năng</a>
+      <a href="#comparison" className="transition hover:text-slate-950">So sánh</a>
+      <a href="#proof" className="transition hover:text-slate-950">Khách hàng</a>
+      <a href="#pricing" className="transition hover:text-slate-950">Bảng giá</a>
+    </nav>
+
+    <div className="flex items-center gap-3">
+      <Link href="https://app.optigo.vn" className="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:bg-white sm:inline-flex">
+        Đăng nhập
+      </Link>
+      <a href="#pricing" className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
+        Dùng thử miễn phí
+      </a>
+    </div>
+  </div>
+</header>
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -680,18 +689,27 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 md:flex-row">
-          <div className="flex items-center gap-3">
-            <div className="grid h-8 w-8 place-items-center rounded-xl bg-slate-950 text-xs font-semibold text-white">O</div>
-            <span className="text-sm font-medium text-slate-600">OptiGo — Phần mềm quản lý phòng khám mắt & cửa hàng kính</span>
-          </div>
-          <div className="flex items-center gap-6 text-sm text-slate-500">
-            <a href="mailto:hello@optigo.vn" className="transition hover:text-slate-900">hello@optigo.vn</a>
-            <Link href="https://app.optigo.vn" className="transition hover:text-slate-900">Đăng nhập</Link>
-          </div>
-        </div>
-      </footer>
+<footer className="border-t border-slate-200 bg-white py-8">
+  <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 md:flex-row">
+    <div className="flex items-center gap-3">
+      {/* ← Logo thật */}
+      <img 
+        src="https://optigo.vn/logo.png" 
+        alt="OptiGo Logo" 
+        className="h-8 w-auto"   // giữ chiều cao 8 (32px), rộng tự động theo tỉ lệ
+      />
+      
+      <span className="text-sm font-medium text-slate-600">
+        OptiGo — Phần mềm quản lý phòng khám mắt & cửa hàng kính
+      </span>
+    </div>
+    
+    <div className="flex items-center gap-6 text-sm text-slate-500">
+      <a href="mailto:support@optigo.vn" className="transition hover:text-slate-900">support@optigo.vn</a>
+      <Link href="https://app.optigo.vn" className="transition hover:text-slate-900">Đăng nhập</Link>
+    </div>
+  </div>
+</footer>
     </main>
   );
 }
