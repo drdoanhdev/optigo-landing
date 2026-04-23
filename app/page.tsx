@@ -266,6 +266,7 @@ export default function Home() {
       <a href="#comparison" className="transition hover:text-slate-950">So sánh</a>
       <a href="#proof" className="transition hover:text-slate-950">Khách hàng</a>
       <a href="#pricing" className="transition hover:text-slate-950">Bảng giá</a>
+      <Link href="/kien-thuc" className="transition hover:text-slate-950">Kiến thức</Link>
     </nav>
 
     <div className="flex items-center gap-3">
@@ -705,6 +706,7 @@ export default function Home() {
     </div>
     
     <div className="flex items-center gap-6 text-sm text-slate-500">
+      <Link href="/kien-thuc" className="transition hover:text-slate-900">Kiến thức</Link>
       <a href="mailto:support@optigo.vn" className="transition hover:text-slate-900">support@optigo.vn</a>
       <Link href="https://app.optigo.vn" className="transition hover:text-slate-900">Đăng nhập</Link>
     </div>
